@@ -1,0 +1,4 @@
+"model","description","n_terms","AIC","BIC"
+"model_1","All predictors as they are",13,50922,51044
+"model_2","model_1 + log delay, age squared, boarding as a category",17,46089,46248
+"model_3","model_2 without cleanliness",16,46127,46277

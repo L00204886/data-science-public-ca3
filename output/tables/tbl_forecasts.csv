@@ -1,0 +1,10 @@
+"case","logistic_regression","random_forest","similar_passengers","observed_pct_satisfied"
+"1. Typical passenger",93.8,100,3471,87.8
+"2. Online boarding = 2",62.8,98,410,64.4
+"3. Online boarding = 5",99.1,100,3223,100
+"4. Economy class",86.7,85.1,762,72.3
+"5. Leisure trip in Economy",21.4,19.9,1081,17.4
+"6. Arrival delay 120 min",85.5,96.5,237,83.1
+"7. First-time customer",67.6,26.4,331,68.6
+"8. Ideal: all ratings 5",99.8,100,1404,100
+"9. At risk: all ratings 2, leisure, Economy",0.3,0,1029,0.6

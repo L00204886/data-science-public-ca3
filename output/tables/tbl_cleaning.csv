@@ -1,0 +1,4 @@
+"step","passengers","percent"
+"Passengers in the survey",129880,100
+"Removed: a rating of 0 (not applicable) or a missing arrival delay",6130,4.7
+"Passengers used for modelling",123750,95.3

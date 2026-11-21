@@ -1,0 +1,12 @@
+"predictor","mean_decrease_accuracy","mean_decrease_gini"
+"online_booking",107.2,1972
+"type_of_travel",102.9,5086
+"online_boarding",96.1,9917
+"seat_comfort",94.6,2552
+"customer_type",85.6,1972
+"cleanliness",64.6,1568
+"inflight_entertainment",64,3622
+"age",57.3,2528
+"leg_room",56.8,2569
+"class",47,4237
+"arrival_delay",42.5,1179

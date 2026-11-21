@@ -1,0 +1,12 @@
+"predictor","vif"
+"factor(online_boarding)",1.13
+"inflight_entertainment",1.81
+"seat_comfort",1.9
+"online_booking",1.13
+"leg_room",1.16
+"cleanliness",1.97
+"type_of_travel",1.68
+"class",1.14
+"customer_type",1.32
+"log_delay",1.02
+"poly(age, 2)",1.11

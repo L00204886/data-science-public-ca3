@@ -1,0 +1,4 @@
+"variable","skewness","shapiro_p"
+"age",-0.01,7.42e-19
+"arrival_delay",6.29,7.56e-82
+"log(1 + arrival_delay)",0.86,6.05e-65

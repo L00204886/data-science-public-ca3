@@ -1,0 +1,2 @@
+"baseline_accuracy","both_right","both_wrong","lr_right_rf_wrong","rf_right_lr_wrong","mcnemar_chi_squared","mcnemar_p"
+57.6,32469,2041,575,2039,818.8,"< 0.001"

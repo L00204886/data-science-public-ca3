@@ -1,0 +1,609 @@
+
+============================================================
+Running scripts/01_data_preparation.R 
+============================================================
+
+--- 1. Import and inspect the survey dataset ---
+[1] 129880     24
+'data.frame':	129880 obs. of  24 variables:
+ $ ID                                    : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ Gender                                : chr  "Male" "Female" "Male" "Male" ...
+ $ Age                                   : int  48 35 41 50 49 43 43 60 50 38 ...
+ $ Customer.Type                         : chr  "First-time" "Returning" "Returning" "Returning" ...
+ $ Type.of.Travel                        : chr  "Business" "Business" "Business" "Business" ...
+ $ Class                                 : chr  "Business" "Business" "Business" "Business" ...
+ $ Flight.Distance                       : int  821 821 853 1905 3470 3788 1963 853 2607 2822 ...
+ $ Departure.Delay                       : int  2 26 0 0 0 0 0 0 0 13 ...
+ $ Arrival.Delay                         : int  5 39 0 0 1 0 0 3 0 0 ...
+ $ Departure.and.Arrival.Time.Convenience: int  3 2 4 2 3 4 3 3 1 2 ...
+ $ Ease.of.Online.Booking                : int  3 2 4 2 3 4 3 4 1 5 ...
+ $ Check.in.Service                      : int  4 3 4 3 3 3 4 3 3 3 ...
+ $ Online.Boarding                       : int  3 5 5 4 5 5 4 4 2 5 ...
+ $ Gate.Location                         : int  3 2 4 2 3 4 3 4 1 2 ...
+ $ On.board.Service                      : int  3 5 3 5 3 4 5 3 4 5 ...
+ $ Seat.Comfort                          : int  5 4 5 5 4 4 5 4 3 4 ...
+ $ Leg.Room.Service                      : int  2 5 3 5 4 4 5 4 4 5 ...
+ $ Cleanliness                           : int  5 5 5 4 5 3 4 4 3 4 ...
+ $ Food.and.Drink                        : int  5 3 5 4 4 3 5 4 3 2 ...
+ $ In.flight.Service                     : int  5 5 3 5 3 4 5 3 4 5 ...
+ $ In.flight.Wifi.Service                : int  3 2 4 2 3 4 3 4 4 2 ...
+ $ In.flight.Entertainment               : int  5 5 3 5 3 4 5 3 4 5 ...
+ $ Baggage.Handling                      : int  5 5 3 5 3 4 5 3 4 5 ...
+ $ Satisfaction                          : chr  "Neutral or Dissatisfied" "Satisfied" "Satisfied" "Satisfied" ...
+       ID               Gender            Age          Customer.Type      Type.of.Travel         Class       
+ Min.   :     1   Length   :129880   Min.   : 7.00   Length   :129880   Length   :129880   Length   :129880  
+ 1st Qu.: 32471   N.unique :     2   1st Qu.:27.00   N.unique :     2   N.unique :     2   N.unique :     3  
+ Median : 64940   N.blank  :     0   Median :40.00   N.blank  :     0   N.blank  :     0   N.blank  :     0  
+ Mean   : 64940   Min.nchar:     4   Mean   :39.43   Min.nchar:     9   Min.nchar:     8   Min.nchar:     7  
+ 3rd Qu.: 97410   Max.nchar:     6   3rd Qu.:51.00   Max.nchar:    10   Max.nchar:     8   Max.nchar:    12  
+ Max.   :129880                      Max.   :85.00                                                           
+                                                                                                             
+ Flight.Distance Departure.Delay   Arrival.Delay     Departure.and.Arrival.Time.Convenience Ease.of.Online.Booking
+ Min.   :  31    Min.   :   0.00   Min.   :   0.00   Min.   :0.000                          Min.   :0.000         
+ 1st Qu.: 414    1st Qu.:   0.00   1st Qu.:   0.00   1st Qu.:2.000                          1st Qu.:2.000         
+ Median : 844    Median :   0.00   Median :   0.00   Median :3.000                          Median :3.000         
+ Mean   :1190    Mean   :  14.71   Mean   :  15.09   Mean   :3.058                          Mean   :2.757         
+ 3rd Qu.:1744    3rd Qu.:  12.00   3rd Qu.:  13.00   3rd Qu.:4.000                          3rd Qu.:4.000         
+ Max.   :4983    Max.   :1592.00   Max.   :1584.00   Max.   :5.000                          Max.   :5.000         
+                                   NAs    :393                                                                    
+ Check.in.Service Online.Boarding Gate.Location   On.board.Service  Seat.Comfort   Leg.Room.Service  Cleanliness   
+ Min.   :0.000    Min.   :0.000   Min.   :0.000   Min.   :0.000    Min.   :0.000   Min.   :0.000    Min.   :0.000  
+ 1st Qu.:3.000    1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.000    1st Qu.:2.000   1st Qu.:2.000    1st Qu.:2.000  
+ Median :3.000    Median :3.000   Median :3.000   Median :4.000    Median :4.000   Median :4.000    Median :3.000  
+ Mean   :3.306    Mean   :3.253   Mean   :2.977   Mean   :3.383    Mean   :3.441   Mean   :3.351    Mean   :3.286  
+ 3rd Qu.:4.000    3rd Qu.:4.000   3rd Qu.:4.000   3rd Qu.:4.000    3rd Qu.:5.000   3rd Qu.:4.000    3rd Qu.:4.000  
+ Max.   :5.000    Max.   :5.000   Max.   :5.000   Max.   :5.000    Max.   :5.000   Max.   :5.000    Max.   :5.000  
+                                                                                                                   
+ Food.and.Drink  In.flight.Service In.flight.Wifi.Service In.flight.Entertainment Baggage.Handling    Satisfaction   
+ Min.   :0.000   Min.   :0.000     Min.   :0.000          Min.   :0.000           Min.   :1.000    Length   :129880  
+ 1st Qu.:2.000   1st Qu.:3.000     1st Qu.:2.000          1st Qu.:2.000           1st Qu.:3.000    N.unique :     2  
+ Median :3.000   Median :4.000     Median :3.000          Median :4.000           Median :4.000    N.blank  :     0  
+ Mean   :3.205   Mean   :3.642     Mean   :2.729          Mean   :3.358           Mean   :3.632    Min.nchar:     9  
+ 3rd Qu.:4.000   3rd Qu.:5.000     3rd Qu.:4.000          3rd Qu.:4.000           3rd Qu.:5.000    Max.nchar:    23  
+ Max.   :5.000   Max.   :5.000     Max.   :5.000          Max.   :5.000           Max.   :5.000                      
+                                                                                                                     
+
+--- 2. Give columns short lower-case names ---
+ [1] "id"                     "gender"                 "age"                    "customer_type"         
+ [5] "type_of_travel"         "class"                  "flight_distance"        "departure_delay"       
+ [9] "arrival_delay"          "time_convenience"       "online_booking"         "checkin_service"       
+[13] "online_boarding"        "gate_location"          "onboard_service"        "seat_comfort"          
+[17] "leg_room"               "cleanliness"            "food_and_drink"         "inflight_service"      
+[21] "wifi"                   "inflight_entertainment" "baggage_handling"       "satisfaction"          
+
+--- 3. Check for missing values ---
+                    id                 gender                    age          customer_type         type_of_travel 
+                     0                      0                      0                      0                      0 
+                 class        flight_distance        departure_delay          arrival_delay       time_convenience 
+                     0                      0                      0                    393                      0 
+        online_booking        checkin_service        online_boarding          gate_location        onboard_service 
+                     0                      0                      0                      0                      0 
+          seat_comfort               leg_room            cleanliness         food_and_drink       inflight_service 
+                     0                      0                      0                      0                      0 
+                  wifi inflight_entertainment       baggage_handling           satisfaction 
+                     0                      0                      0                      0 
+
+--- 4a. Excluded predictor check: departure vs arrival delay ---
+  correlation
+1       0.965
+
+--- 4b. Excluded predictor check: satisfaction by Wi-Fi score ---
+  wifi_rating pct_satisfied
+1           0          99.7
+2           1          32.8
+3           2          24.7
+4           3          25.2
+5           4          60.1
+6           5          99.0
+
+--- 5. Select the outcome and the eleven predictors ---
+ [1] "satisfaction"           "online_boarding"        "inflight_entertainment" "seat_comfort"          
+ [5] "online_booking"         "leg_room"               "cleanliness"            "type_of_travel"        
+ [9] "class"                  "customer_type"          "arrival_delay"          "age"                   
+
+--- 6. Remove 'not applicable' ratings (0) and missing delays ---
+          satisfaction        online_boarding inflight_entertainment           seat_comfort         online_booking 
+                     0                   3080                     18                      1                   5682 
+              leg_room            cleanliness         type_of_travel                  class          customer_type 
+                   598                     14                      0                      0                      0 
+         arrival_delay                    age 
+                   393                      0 
+                                                                step passengers percent
+1                                           Passengers in the survey     129880   100.0
+2 Removed: a rating of 0 (not applicable) or a missing arrival delay       6130     4.7
+3                                      Passengers used for modelling     123750    95.3
+
+--- 7. Set factor levels and reference categories ---
+'data.frame':	123750 obs. of  12 variables:
+ $ satisfaction          : Factor w/ 2 levels "Neutral or Dissatisfied",..: 1 2 2 2 2 2 2 2 1 2 ...
+ $ online_boarding       : int  3 5 5 4 5 5 4 4 2 5 ...
+ $ inflight_entertainment: int  5 5 3 5 3 4 5 3 4 5 ...
+ $ seat_comfort          : int  5 4 5 5 4 4 5 4 3 4 ...
+ $ online_booking        : int  3 2 4 2 3 4 3 4 1 5 ...
+ $ leg_room              : int  2 5 3 5 4 4 5 4 4 5 ...
+ $ cleanliness           : int  5 5 5 4 5 3 4 4 3 4 ...
+ $ type_of_travel        : Factor w/ 2 levels "Personal","Business": 2 2 2 2 2 2 2 2 2 2 ...
+ $ class                 : Factor w/ 3 levels "Economy","Economy Plus",..: 3 3 3 3 3 3 3 3 3 3 ...
+ $ customer_type         : Factor w/ 2 levels "First-time","Returning": 1 2 2 2 2 2 2 2 2 2 ...
+ $ arrival_delay         : int  5 39 0 0 1 0 0 3 0 0 ...
+ $ age                   : int  48 35 41 50 49 43 43 60 50 38 ...
+ - attr(*, "na.action")= 'omit' Named int [1:6130] 28 34 45 47 58 65 79 89 95 96 ...
+  ..- attr(*, "names")= chr [1:6130] "28" "34" "45" "47" ...
+satisfaction
+Neutral or Dissatisfied               Satisfied 
+                  71313                   52437 
+
+--- 8. Split into training (70%) and test (30%) sets ---
+  data_set passengers pct_satisfied
+1 Training      86626          42.4
+2     Test      37124          42.4
+
+============================================================
+Running scripts/02_assumptions.R 
+============================================================
+
+--- 1. Confirm binary outcome balance (training set) ---
+satisfaction
+Neutral or Dissatisfied               Satisfied 
+                  49920                   36706 
+satisfaction
+Neutral or Dissatisfied               Satisfied 
+                   57.6                    42.4 
+
+--- 2. Check continuous predictors for outliers (1.5 x IQR) ---
+       variable n_outliers pct_of_data upper_whisker
+1           age          0         0.0            85
+2 arrival_delay      11682        13.5            32
+
+--- 3. Check skewness, normality and category cell sizes ---
+                variable skewness shapiro_p
+1                    age    -0.01  7.42e-19
+2          arrival_delay     6.29  7.56e-82
+3 log(1 + arrival_delay)     0.86  6.05e-65
+       online_boarding inflight_entertainment           seat_comfort         online_booking               leg_room 
+                 -0.33                  -0.38                  -0.49                   0.12                  -0.33 
+           cleanliness 
+                 -0.30 
+              satisfaction
+type_of_travel Neutral or Dissatisfied Satisfied
+      Personal                   24240      2196
+      Business                   25680     34510
+              satisfaction
+class          Neutral or Dissatisfied Satisfied
+  Economy                        31996      6711
+  Economy Plus                    4811      1464
+  Business                       13113     28531
+             satisfaction
+customer_type Neutral or Dissatisfied Satisfied
+   First-time                   12347      3383
+   Returning                    37573     33323
+                 variable outliers_or_cells     skewness
+1         online_boarding  None (1-5 scale)        -0.33
+2  inflight_entertainment  None (1-5 scale)        -0.38
+3            seat_comfort  None (1-5 scale)        -0.49
+4          online_booking  None (1-5 scale)         0.12
+5                leg_room  None (1-5 scale)        -0.33
+6             cleanliness  None (1-5 scale)         -0.3
+7          type_of_travel   Min cell: 2,196          N/A
+8                   class   Min cell: 1,464          N/A
+9           customer_type   Min cell: 3,383          N/A
+10          arrival_delay    11,682 (13.5%) 6.29 -> 0.86
+11                    age            0 (0%)        -0.01
+
+--- 4. Check pairwise Spearman correlations ---
+                       online_boarding inflight_entertainment seat_comfort online_booking leg_room cleanliness   age
+online_boarding                   1.00                   0.31         0.45           0.35     0.15        0.35  0.19
+inflight_entertainment            0.31                   1.00         0.61           0.03     0.32        0.68  0.08
+seat_comfort                      0.45                   0.61         1.00           0.03     0.13        0.67  0.16
+online_booking                    0.35                   0.03         0.03           1.00     0.08        0.01  0.02
+leg_room                          0.15                   0.32         0.13           0.08     1.00        0.10  0.06
+cleanliness                       0.35                   0.68         0.67           0.01     0.10        1.00  0.05
+age                               0.19                   0.08         0.16           0.02     0.06        0.05  1.00
+log_delay                        -0.06                  -0.05        -0.04          -0.02    -0.02       -0.04 -0.01
+                       log_delay
+online_boarding            -0.06
+inflight_entertainment     -0.05
+seat_comfort               -0.04
+online_booking             -0.02
+leg_room                   -0.02
+cleanliness                -0.04
+age                        -0.01
+log_delay                   1.00
+
+--- 5. Check linearity with empirical log-odds ---
+Saved 8-panel log-odds linearity plot: output/figures/fig_logit.png
+
+============================================================
+Running scripts/03_logistic_regression.R 
+============================================================
+
+--- 1. Fit model_1: baseline logistic regression ---
+
+Call:
+glm(formula = satisfaction ~ online_boarding + inflight_entertainment + 
+    seat_comfort + online_booking + leg_room + cleanliness + 
+    type_of_travel + class + customer_type + arrival_delay + 
+    age, family = binomial, data = train_data)
+
+Coefficients:
+                         Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)            -1.255e+01  9.345e-02 -134.312  < 2e-16 ***
+online_boarding         1.209e+00  1.287e-02   93.870  < 2e-16 ***
+inflight_entertainment  5.324e-01  1.284e-02   41.478  < 2e-16 ***
+seat_comfort           -1.361e-01  1.286e-02  -10.584  < 2e-16 ***
+online_booking          2.667e-01  9.250e-03   28.833  < 2e-16 ***
+leg_room                5.030e-01  9.883e-03   50.896  < 2e-16 ***
+cleanliness             9.158e-02  1.284e-02    7.131 1.00e-12 ***
+type_of_travelBusiness  2.872e+00  3.488e-02   82.350  < 2e-16 ***
+classEconomy Plus      -1.301e-01  4.703e-02   -2.765  0.00568 ** 
+classBusiness           8.632e-01  2.714e-02   31.807  < 2e-16 ***
+customer_typeReturning  1.848e+00  3.271e-02   56.497  < 2e-16 ***
+arrival_delay          -3.973e-03  2.908e-04  -13.664  < 2e-16 ***
+age                    -5.539e-03  8.341e-04   -6.641 3.12e-11 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 118066  on 86625  degrees of freedom
+Residual deviance:  50896  on 86613  degrees of freedom
+AIC: 50922
+
+Number of Fisher Scoring iterations: 6
+
+
+--- 2. Fit model_2: with log delay, curved age and categorical boarding ---
+
+Call:
+glm(formula = satisfaction ~ factor(online_boarding) + inflight_entertainment + 
+    seat_comfort + online_booking + leg_room + cleanliness + 
+    type_of_travel + class + customer_type + log_delay + poly(age, 
+    2), family = binomial, data = train_data)
+
+Coefficients:
+                           Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)               -9.973509   0.091333 -109.200  < 2e-16 ***
+factor(online_boarding)2  -0.336222   0.053017   -6.342 2.27e-10 ***
+factor(online_boarding)3  -0.499852   0.050963   -9.808  < 2e-16 ***
+factor(online_boarding)4   1.853459   0.049167   37.697  < 2e-16 ***
+factor(online_boarding)5   3.872665   0.059262   65.348  < 2e-16 ***
+inflight_entertainment     0.539723   0.013245   40.750  < 2e-16 ***
+seat_comfort              -0.125576   0.013324   -9.425  < 2e-16 ***
+online_booking             0.275715   0.009525   28.948  < 2e-16 ***
+leg_room                   0.498714   0.010502   47.489  < 2e-16 ***
+cleanliness                0.084862   0.013319    6.372 1.87e-10 ***
+type_of_travelBusiness     3.171817   0.039675   79.944  < 2e-16 ***
+classEconomy Plus         -0.102584   0.049822   -2.059   0.0395 *  
+classBusiness              0.843754   0.028637   29.464  < 2e-16 ***
+customer_typeReturning     1.979669   0.034628   57.170  < 2e-16 ***
+log_delay                 -0.196456   0.007390  -26.582  < 2e-16 ***
+poly(age, 2)1            -28.712130   3.997304   -7.183 6.83e-13 ***
+poly(age, 2)2            -36.800878   3.816501   -9.643  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 118066  on 86625  degrees of freedom
+Residual deviance:  46055  on 86609  degrees of freedom
+AIC: 46089
+
+Number of Fisher Scoring iterations: 6
+
+
+--- 3. Fit model_3: single-term deletion test on model_2 ---
+Single term deletions
+
+Model:
+satisfaction ~ factor(online_boarding) + inflight_entertainment + 
+    seat_comfort + online_booking + leg_room + cleanliness + 
+    type_of_travel + class + customer_type + log_delay + poly(age, 
+    2)
+                        Df Deviance   AIC     LRT  Pr(>Chi)    
+<none>                        46055 46089                      
+factor(online_boarding)  4    61737 61763 15682.1 < 2.2e-16 ***
+inflight_entertainment   1    47803 47835  1748.5 < 2.2e-16 ***
+seat_comfort             1    46144 46176    89.3 < 2.2e-16 ***
+online_booking           1    46904 46936   849.0 < 2.2e-16 ***
+leg_room                 1    48433 48465  2378.1 < 2.2e-16 ***
+cleanliness              1    46095 46127    40.6 1.896e-10 ***
+type_of_travel           1    54396 54428  8341.1 < 2.2e-16 ***
+class                    2    47071 47101  1016.3 < 2.2e-16 ***
+customer_type            1    49721 49753  3666.1 < 2.2e-16 ***
+log_delay                1    46782 46814   726.7 < 2.2e-16 ***
+poly(age, 2)             2    46224 46254   169.4 < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Weakest predictor: cleanliness 
+
+
+Call:
+glm(formula = satisfaction ~ factor(online_boarding) + inflight_entertainment + 
+    seat_comfort + online_booking + leg_room + type_of_travel + 
+    class + customer_type + log_delay + poly(age, 2), family = binomial, 
+    data = train_data)
+
+Coefficients:
+                           Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)               -9.881418   0.089936 -109.872  < 2e-16 ***
+factor(online_boarding)2  -0.325951   0.053083   -6.140 8.23e-10 ***
+factor(online_boarding)3  -0.486399   0.050995   -9.538  < 2e-16 ***
+factor(online_boarding)4   1.879277   0.049088   38.284  < 2e-16 ***
+factor(online_boarding)5   3.904437   0.059133   66.029  < 2e-16 ***
+inflight_entertainment     0.575731   0.012011   47.934  < 2e-16 ***
+seat_comfort              -0.093899   0.012359   -7.598 3.01e-14 ***
+online_booking             0.271543   0.009497   28.592  < 2e-16 ***
+leg_room                   0.491719   0.010429   47.148  < 2e-16 ***
+type_of_travelBusiness     3.157489   0.039556   79.823  < 2e-16 ***
+classEconomy Plus         -0.101235   0.049772   -2.034    0.042 *  
+classBusiness              0.839627   0.028612   29.345  < 2e-16 ***
+customer_typeReturning     1.962816   0.034498   56.897  < 2e-16 ***
+log_delay                 -0.195768   0.007383  -26.516  < 2e-16 ***
+poly(age, 2)1            -30.471957   3.985332   -7.646 2.07e-14 ***
+poly(age, 2)2            -36.950172   3.815100   -9.685  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 118066  on 86625  degrees of freedom
+Residual deviance:  46095  on 86610  degrees of freedom
+AIC: 46127
+
+Number of Fisher Scoring iterations: 6
+
+
+--- 4. Compare model_1, model_2 and model_3 (AIC and BIC) ---
+    model                                              description n_terms   AIC   BIC
+1 model_1                               All predictors as they are      13 50922 51044
+2 model_2 model_1 + log delay, age squared, boarding as a category      17 46089 46248
+3 model_3                              model_2 without cleanliness      16 46127 46277
+
+--- 5a. Post-estimation check: Variance Inflation Factors (VIF) ---
+                            GVIF Df GVIF^(1/(2*Df))
+factor(online_boarding) 1.632676  4        1.063194
+inflight_entertainment  1.810398  1        1.345510
+seat_comfort            1.903311  1        1.379606
+online_booking          1.128375  1        1.062250
+leg_room                1.163443  1        1.078630
+cleanliness             1.973706  1        1.404887
+type_of_travel          1.678562  1        1.295593
+class                   1.303110  2        1.068428
+customer_type           1.317044  1        1.147626
+log_delay               1.022099  1        1.010989
+poly(age, 2)            1.236220  2        1.054445
+                 predictor  vif
+1  factor(online_boarding) 1.13
+2   inflight_entertainment 1.81
+3             seat_comfort 1.90
+4           online_booking 1.13
+5                 leg_room 1.16
+6              cleanliness 1.97
+7           type_of_travel 1.68
+8                    class 1.14
+9            customer_type 1.32
+10               log_delay 1.02
+11            poly(age, 2) 1.11
+
+--- 5b. Post-estimation check: Cook's distance ---
+Largest Cook's distance: 0.000564 
+
+--- 5c. Assumption summary tables (model-wide and per-predictor) ---
+                     assumption                                                        evidence           verdict
+1                Binary outcome                                       2 levels; 42.4% satisfied               Met
+2      Independent observations     One survey per passenger; data has no flight ID to group by Met (with caveat)
+3 Enough data (events per term)                        2,294 events per term (need at least 10)               Met
+4          No multicollinearity Largest Spearman r = 0.68; largest VIF = 1.97 (concern above 5)               Met
+5       No influential outliers             Largest Cook's distance = 0.00056 (concern above 1)               Met
+                 predictor          type outliers_or_cells     skewness          logit_linearity  vif
+1          Online boarding Ordinal (1-5)  None (1-5 scale)        -0.33   Violated (jump at 4-5) 1.13
+2  In-flight entertainment Ordinal (1-5)  None (1-5 scale)        -0.38                      Met 1.81
+3             Seat comfort Ordinal (1-5)  None (1-5 scale)        -0.49   Partly met (step at 4) 1.90
+4           Online booking Ordinal (1-5)  None (1-5 scale)         0.12 Partly met (step at 4-5) 1.13
+5                 Leg room Ordinal (1-5)  None (1-5 scale)        -0.33                      Met 1.16
+6              Cleanliness Ordinal (1-5)  None (1-5 scale)         -0.3                      Met 1.97
+7           Type of travel   Categorical   Min cell: 2,196          N/A        N/A (categorical) 1.68
+8              Cabin class   Categorical   Min cell: 1,464          N/A        N/A (categorical) 1.14
+9            Customer type   Categorical   Min cell: 3,383          N/A        N/A (categorical) 1.32
+10           Arrival delay    Continuous    11,682 (13.5%) 6.29 -> 0.86     Partly met after log 1.02
+11                     Age    Continuous            0 (0%)        -0.01        Violated (curved) 1.11
+                                 verdict
+1  Met: category factor(online_boarding)
+2                 Met: kept as 1-5 slope
+3  Partly met: kept linear for parsimony
+4  Partly met: kept linear for parsimony
+5                 Met: kept as 1-5 slope
+6                 Met: kept as 1-5 slope
+7                  Met: binary indicator
+8             Met: 2 category indicators
+9                  Met: binary indicator
+10            Partly met: log(1 + delay)
+11               Met: curve poly(age, 2)
+
+--- 6. Extract odds ratios and McFadden fit summary ---
+                       term odds_ratio lower_95 upper_95 p_value
+1               (Intercept)      0.000    0.000    0.000 < 0.001
+2  factor(online_boarding)2      0.714    0.644    0.793 < 0.001
+3  factor(online_boarding)3      0.607    0.549    0.670 < 0.001
+4  factor(online_boarding)4      6.382    5.796    7.027 < 0.001
+5  factor(online_boarding)5     48.070   42.799   53.991 < 0.001
+6    inflight_entertainment      1.716    1.672    1.761 < 0.001
+7              seat_comfort      0.882    0.859    0.905 < 0.001
+8            online_booking      1.317    1.293    1.342 < 0.001
+9                  leg_room      1.647    1.613    1.681 < 0.001
+10              cleanliness      1.089    1.061    1.117 < 0.001
+11   type_of_travelBusiness     23.851   22.066   25.779 < 0.001
+12        classEconomy Plus      0.903    0.819    0.995   0.039
+13            classBusiness      2.325    2.198    2.459 < 0.001
+14   customer_typeReturning      7.240    6.765    7.749 < 0.001
+15                log_delay      0.822    0.810    0.834 < 0.001
+16            poly(age, 2)1      0.000    0.000    0.000 < 0.001
+17            poly(age, 2)2      0.000    0.000    0.000 < 0.001
+  mcfadden_r2 events terms events_per_term
+1        0.61  36706    16            2294
+
+--- 7. Validate final logistic regression on the test set ---
+                    Actual               Predicted Probability
+1  Neutral or Dissatisfied Neutral or Dissatisfied       0.078
+10               Satisfied               Satisfied       0.998
+12 Neutral or Dissatisfied Neutral or Dissatisfied       0.033
+19 Neutral or Dissatisfied Neutral or Dissatisfied       0.014
+21 Neutral or Dissatisfied Neutral or Dissatisfied       0.013
+22 Neutral or Dissatisfied Neutral or Dissatisfied       0.004
+40               Satisfied               Satisfied       0.953
+41               Satisfied               Satisfied       0.829
+52 Neutral or Dissatisfied               Satisfied       0.674
+55 Neutral or Dissatisfied Neutral or Dissatisfied       0.118
+Confusion Matrix and Statistics
+
+                         Reference
+Prediction                Neutral or Dissatisfied Satisfied
+  Neutral or Dissatisfied                   19588      2275
+  Satisfied                                  1805     13456
+                                          
+               Accuracy : 0.8901          
+                 95% CI : (0.8869, 0.8933)
+    No Information Rate : 0.5763          
+    P-Value [Acc > NIR] : < 2.2e-16       
+                                          
+                  Kappa : 0.7741          
+                                          
+ Mcnemar's Test P-Value : 2.097e-13       
+                                          
+            Sensitivity : 0.8554          
+            Specificity : 0.9156          
+         Pos Pred Value : 0.8817          
+         Neg Pred Value : 0.8959          
+             Prevalence : 0.4237          
+         Detection Rate : 0.3625          
+   Detection Prevalence : 0.4111          
+      Balanced Accuracy : 0.8855          
+                                          
+       'Positive' Class : Satisfied       
+                                          
+
+============================================================
+Running scripts/04_random_forest.R 
+============================================================
+
+--- 1. Fit random forest (201 trees, mtry = 3) ---
+
+Call:
+ randomForest(formula = satisfaction ~ online_boarding + inflight_entertainment +      seat_comfort + online_booking + leg_room + cleanliness +      type_of_travel + class + customer_type + arrival_delay +      age, data = train_data, ntree = 201, mtry = 3, importance = TRUE) 
+               Type of random forest: classification
+                     Number of trees: 201
+No. of variables tried at each split: 3
+
+        OOB estimate of  error rate: 7.13%
+Confusion matrix:
+                        Neutral or Dissatisfied Satisfied class.error
+Neutral or Dissatisfied                   47357      2563  0.05134215
+Satisfied                                  3617     33089  0.09853975
+
+--- 2. Validate random forest on the test set ---
+                    Actual               Predicted
+1  Neutral or Dissatisfied Neutral or Dissatisfied
+10               Satisfied               Satisfied
+12 Neutral or Dissatisfied Neutral or Dissatisfied
+19 Neutral or Dissatisfied Neutral or Dissatisfied
+21 Neutral or Dissatisfied Neutral or Dissatisfied
+22 Neutral or Dissatisfied Neutral or Dissatisfied
+40               Satisfied               Satisfied
+41               Satisfied               Satisfied
+52 Neutral or Dissatisfied Neutral or Dissatisfied
+55 Neutral or Dissatisfied Neutral or Dissatisfied
+Confusion Matrix and Statistics
+
+                         Reference
+Prediction                Neutral or Dissatisfied Satisfied
+  Neutral or Dissatisfied                   20366      1589
+  Satisfied                                  1027     14142
+                                          
+               Accuracy : 0.9295          
+                 95% CI : (0.9269, 0.9321)
+    No Information Rate : 0.5763          
+    P-Value [Acc > NIR] : < 2.2e-16       
+                                          
+                  Kappa : 0.855           
+                                          
+ Mcnemar's Test P-Value : < 2.2e-16       
+                                          
+            Sensitivity : 0.8990          
+            Specificity : 0.9520          
+         Pos Pred Value : 0.9323          
+         Neg Pred Value : 0.9276          
+             Prevalence : 0.4237          
+         Detection Rate : 0.3809          
+   Detection Prevalence : 0.4086          
+      Balanced Accuracy : 0.9255          
+                                          
+       'Positive' Class : Satisfied       
+                                          
+
+--- 3. Rank predictor importance (mean decrease in accuracy) ---
+                predictor mean_decrease_accuracy mean_decrease_gini
+1          online_booking                  107.2               1972
+2          type_of_travel                  102.9               5086
+3         online_boarding                   96.1               9917
+4            seat_comfort                   94.6               2552
+5           customer_type                   85.6               1972
+6             cleanliness                   64.6               1568
+7  inflight_entertainment                   64.0               3622
+8                     age                   57.3               2528
+9                leg_room                   56.8               2569
+10                  class                   47.0               4237
+11          arrival_delay                   42.5               1179
+
+============================================================
+Running scripts/05_compare_and_forecast.R 
+============================================================
+
+--- 1. Compare model performance and run McNemar's test ---
+                model training_accuracy test_accuracy sensitivity specificity precision
+1 Logistic regression              89.1            89        85.5        91.6      88.2
+2       Random forest              92.9            93        89.9        95.2      93.2
+          RF_correct
+LR_correct FALSE  TRUE
+     FALSE  2041  2039
+     TRUE    575 32469
+
+	McNemar's Chi-squared test with continuity correction
+
+data:  table(lr_correct, rf_correct)
+McNemar's chi-squared = 818.81, df = 1, p-value < 2.2e-16
+
+  baseline_accuracy both_right both_wrong lr_right_rf_wrong rf_right_lr_wrong mcnemar_chi_squared mcnemar_p
+1              57.6      32469       2041               575              2039               818.8   < 0.001
+
+--- 2. Devise nine passenger profiles (baseline profile shown below) ---
+  online_boarding inflight_entertainment seat_comfort online_booking leg_room cleanliness type_of_travel    class
+1               4                      4            4              3        4           3       Business Business
+  customer_type arrival_delay age
+1     Returning             0  40
+
+--- 3. Generate satisfaction probability forecasts ---
+Forecast probabilities computed for 9 devised profiles.
+
+--- 4. Benchmark forecasts against similar real test passengers ---
+                                         case logistic_regression random_forest similar_passengers
+1                        1. Typical passenger                93.8         100.0               3471
+2                      2. Online boarding = 2                62.8          98.0                410
+3                      3. Online boarding = 5                99.1         100.0               3223
+4                            4. Economy class                86.7          85.1                762
+5                  5. Leisure trip in Economy                21.4          19.9               1081
+6                    6. Arrival delay 120 min                85.5          96.5                237
+7                      7. First-time customer                67.6          26.4                331
+8                     8. Ideal: all ratings 5                99.8         100.0               1404
+9 9. At risk: all ratings 2, leisure, Economy                 0.3           0.0               1029
+  observed_pct_satisfied
+1                   87.8
+2                   64.4
+3                  100.0
+4                   72.3
+5                   17.4
+6                   83.1
+7                   68.6
+8                  100.0
+9                    0.6
+
+All scripts finished. Tables are in output/tables, charts in output/figures.

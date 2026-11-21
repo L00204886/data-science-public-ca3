@@ -1,0 +1,6 @@
+"assumption","evidence","verdict"
+"Binary outcome","2 levels; 42.4% satisfied","Met"
+"Independent observations","One survey per passenger; data has no flight ID to group by","Met (with caveat)"
+"Enough data (events per term)","2,294 events per term (need at least 10)","Met"
+"No multicollinearity","Largest Spearman r = 0.68; largest VIF = 1.97 (concern above 5)","Met"
+"No influential outliers","Largest Cook's distance = 0.00056 (concern above 1)","Met"
