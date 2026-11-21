@@ -30,6 +30,9 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
+# Local R library fallback (created only if R_LIBS_USER is unwritable)
+.r-library/
+
 # Editor / IDE local settings
 .vscode/
 .idea/

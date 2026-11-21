@@ -15,6 +15,7 @@
 #         output/figures/fig_logit.png
 # ============================================================
 
+source("scripts/ensure_packages.R")
 library(e1071) # skewness()
 library(psych) # pairs.panels()
 

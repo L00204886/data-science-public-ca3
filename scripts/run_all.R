@@ -8,6 +8,26 @@
 # Writes: output/run_log.txt (plus all tables, figures and saved models)
 # ============================================================
 
+# Resolve paths relative to the project root when called with Rscript
+# from another working directory.
+command_args <- commandArgs(trailingOnly = FALSE)
+file_argument <- grep("^--file=", command_args, value = TRUE)
+if (length(file_argument) > 0) {
+  script_path <- normalizePath(sub("^--file=", "", file_argument[[1]]))
+  setwd(dirname(dirname(script_path)))
+}
+
+if (!file.exists("data/airline_passenger_satisfaction.csv")) {
+  stop(
+    "Could not find data/airline_passenger_satisfaction.csv from the current ",
+    "working directory (", getwd(), "). Please run from the project root folder ",
+    "(or open ca3.Rproj in RStudio).",
+    call. = FALSE
+  )
+}
+
+source("scripts/ensure_packages.R")
+
 dir.create("output", showWarnings = FALSE)
 
 # Widen print output so multi-column summary tables stay on single rows
@@ -30,14 +50,21 @@ scripts <- c(
 # Run each script in a fresh local environment with echo = FALSE and
 # print.eval = TRUE so the log shows section headings and results cleanly
 # without echoing plumbing code, while preventing silent variable leakage.
-for (s in scripts) {
-  cat("\n============================================================\n")
-  cat("Running", s, "\n")
-  cat("============================================================\n")
-  source(s, echo = FALSE, print.eval = TRUE, local = new.env())
-}
+# Always restore sink() and options() even if a script raises an error.
+tryCatch(
+  {
+    for (s in scripts) {
+      cat("\n============================================================\n")
+      cat("Running", s, "\n")
+      cat("============================================================\n")
+      source(s, echo = FALSE, print.eval = TRUE, local = new.env())
+    }
 
-cat("\nAll scripts finished. Tables are in output/tables, charts in output/figures.\n")
-sink()
-close(log_file)
-options(old_width)
+    cat("\nAll scripts finished. Tables are in output/tables, charts in output/figures.\n")
+  },
+  finally = {
+    if (sink.number() > 0) sink()
+    if (isOpen(log_file)) close(log_file)
+    options(old_width)
+  }
+)

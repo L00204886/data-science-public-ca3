@@ -12,6 +12,7 @@
 #         output/figures/fig_forecasts.png
 # ============================================================
 
+source("scripts/ensure_packages.R")
 library(randomForest)
 library(caret)
 

@@ -17,10 +17,11 @@
 #         output/models/lr_results.rds
 # ============================================================
 
+source("scripts/ensure_packages.R")
 library(caret) # confusionMatrix()
 library(car) # vif()
 
-dir.create("output/models", showWarnings = FALSE)
+dir.create("output/models", recursive = TRUE, showWarnings = FALSE)
 
 train_data <- readRDS("output/train_data.rds")
 test_data <- readRDS("output/test_data.rds")

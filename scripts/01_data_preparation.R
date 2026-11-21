@@ -11,6 +11,7 @@
 #         output/train_data.rds, output/test_data.rds
 # ============================================================
 
+source("scripts/ensure_packages.R")
 library(caret)
 
 dir.create("output/tables", recursive = TRUE, showWarnings = FALSE)
