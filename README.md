@@ -1,8 +1,8 @@
 CA3: Predicting Airline Passenger Satisfaction
 
-**Module:** DATA_IT904 - Data Science (2026/27).
-**Assessment:** CA 3 - Predictive Modelling.
-**Author:** Eamon Foy (L00204886).
+**Module:** DATA_IT904 - Data Science (2026/27).   
+**Assessment:** CA 3 - Predictive Modelling.   
+**Author:** Eamon Foy (L00204886).   
 
 ## Research question
 
